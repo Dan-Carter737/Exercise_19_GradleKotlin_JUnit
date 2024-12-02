@@ -29,7 +29,8 @@ public class Main {
         weatherOutput.setEditable(false);
         frame.add(new JScrollPane(weatherOutput), BorderLayout.CENTER);
 
-        JButton fetchWeatherButton = new JButton("Узнать погоду");
+        JButton fetchWeatherButton = new JButton("Get the weather forecast");
+        fetchWeatherButton.setBackground(Color.GREEN);
         frame.add(fetchWeatherButton, BorderLayout.EAST);
 
         fetchWeatherButton.addActionListener(new ActionListener() {
@@ -37,7 +38,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 String city = cityInput.getText().trim();
                 if (city.isEmpty()) {
-                    weatherOutput.setText("Пожалуйста, введите название города");
+                    weatherOutput.setText("Enter the city");
                     return;
                 }
 
@@ -46,7 +47,7 @@ public class Main {
                     if (weatherData != null) {
                         weatherOutput.setText(parseAndDisplayWeather(weatherData));
                     } else {
-                        weatherOutput.setText("Не удалось получить данные. Проверьте название города");
+                        weatherOutput.setText("Can't get the city name");
                     }
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
@@ -69,11 +70,11 @@ public class Main {
             JSONObject weather = jsonObject.getJSONArray("weather").getJSONObject(0);
             String description = weather.getString("description");
 
-            return "Город " + cityName + "\nТемпература " + temperature + "°C" + "\nВлажность " + humidity + "%" +
-                    "\nОщущается, как " + feelsLike + "°C" + "\nОписание " + description ;
+            return "City " + cityName + "\nTemperature " + temperature + "°C" + "\nHumidity " + humidity + "%" +
+                    "\nFeel like " + feelsLike + "°C" + "\nDescrip[tion " + description ;
         } catch (Exception e) {
             e.printStackTrace();
-            return "Ошибка обработки данных";
+            return "Error occured";
         }
     }
 
